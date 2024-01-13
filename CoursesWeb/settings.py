@@ -75,12 +75,8 @@ WSGI_APPLICATION = 'CoursesWeb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "CoursesDB",
-        'HOST': "localhost",
-        'USER': "postgres",
-        'PASSWORD': "admin",
-        'PORT':"5432"
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
