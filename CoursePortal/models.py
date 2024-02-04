@@ -11,3 +11,33 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Course(models.Model):
+    name= models.CharField(max_length=50)
+    price=models.FloatField()
+    mrp=models.FloatField()
+    faculty_name=models.CharField(max_length=50)
+    duration = models.CharField(max_length=10) 
+    intake=models.IntegerField()
+
+
+    CATEGORY_CHOICES = (
+         
+        ("web_design", 'Web Design'),
+        ("graphics_design", 'Graphic design'),
+        ("video_editing", 'Video Editing'),
+        ("online_marketing", 'Online Marketing')
+    )
+
+    category = models.CharField(max_length=200, choices=CATEGORY_CHOICES, default="web_design")
+    to_be_listed = models.BooleanField(default=True)
+    description = models.TextField()
+
+    def __str__(self):
+            return self.name
+    
+    def set_duration(self, hours):
+        self.duration = f"{hours} hrs"
+   
+  
