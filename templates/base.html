@@ -64,8 +64,21 @@
                     </div>
                 </div>
                 <a href="/contact" class="nav-item nav-link">Contact</a>
+
+                {% if user.is_authenticated %}
+                <!-- Show logout option if user is logged in -->
+                    <a href="/logout" class="nav-item nav-link">Logout</a>
+
+                {% else %}
+                <!-- Show signup and login options if user is not logged in -->
+                    <a href="/signup" class="nav-item nav-link">Sign UP</a>
+                    <a href="/login" class="nav-item nav-link">LogIn</a>
+                {% endif %}
+
+                {% comment %} <a href="/signup" class="nav-item nav-link">Sign UP</a>
+                <a href="/login" class="nav-item nav-link">LogIn</a> {% endcomment %}
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="/join_now" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->

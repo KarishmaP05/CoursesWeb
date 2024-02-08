@@ -41,3 +41,14 @@ class Course(models.Model):
         self.duration = f"{hours} hrs"
    
   
+class Enrollment(models.Model):
+    first_name=models.CharField(max_length=50)
+    last_name=models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    contact=models.IntegerField()
+    city=models.CharField(max_length=50)
+    course_preferences=models.CharField(max_length=50)
+    price=models.FloatField()
+
+    def __str__(self):
+        return self.first_name
