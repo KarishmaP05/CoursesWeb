@@ -17,6 +17,8 @@ urlpatterns = [
     path('login/',views.userlogin,name="login" ),
     path('join_now/',views.joinnow,name="joinnow" ),
 
-    path('web_design/',views.web_design,name="web_design" ),
-    path('logout/', views.logout_view, name='logout')
+    path('web_design/<int:id>/',views.web_design,name="web_design" ),
+    path('logout/', views.logout_view, name='logout'),
+
+   
 ]

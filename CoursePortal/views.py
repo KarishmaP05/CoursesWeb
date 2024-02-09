@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
-from .models import Contact,Enrollment
+from .models import Contact,Enrollment,Course
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
+from django.views.generic import DetailView
+
 
 # Create your views here.
 def index(request):
@@ -12,7 +14,9 @@ def about(request):
     return render(request,'about.html',{})
 
 def courses(request):
-    return render(request,'courses.html',{})
+    courses=Course.objects.all()
+    # print('Courses',courses)
+    return render(request,'courses.html',{'Courses':courses})
 
 def contact(request):
     if request.method=="POST":
@@ -86,10 +90,15 @@ def joinnow(request):
         return redirect('/join_now')
     return render(request,'join_now.html',{})
 
-def web_design(request):
-    return render(request,'web_design.html',{})
+def web_design(request,id):
+    displaycourse=Course.objects.get(id=id)
+
+    print("dfdfd",displaycourse)
+    return render(request,'web_design.html',{'displaycourse':displaycourse})
 
 
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
