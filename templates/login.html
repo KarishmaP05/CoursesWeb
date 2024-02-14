@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block mainsection %}
+
+        <div style="margin-top: 2em;">
+
+            <form action="/login/" method="post">
+              {% csrf_token %}
+                <div class="container">
+                    <h1>LogIn</h1>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput2" class="form-label">Email address</label>
+                        <input type="text" class="form-control" name="email" id="exampleFormControlInput2" placeholder="name@example.com" required>
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="pwd" id="exampleInputPassword1" placeholder="Password" required>
+                    </div>
+
+                    <input type="submit" class="btn btn-success" style="width: 10em;" value="Log In">
+                    
+                  </div>
+                
+            </form>
+        </div>
+{% endblock mainsection %}

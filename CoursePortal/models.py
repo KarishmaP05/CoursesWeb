@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 
+
 # Create your models here.
 class Contact(models.Model):
     name = models.CharField(max_length=50)
@@ -20,9 +21,11 @@ class Course(models.Model):
     faculty_name=models.CharField(max_length=50)
     duration = models.CharField(max_length=10) 
     intake=models.IntegerField()
+    course_img = models.ImageField(upload_to ='uploads/',height_field=None, width_field=None) 
 
 
     CATEGORY_CHOICES = (
+         
          
         ("web_design", 'Web Design'),
         ("graphics_design", 'Graphic design'),
@@ -41,3 +44,14 @@ class Course(models.Model):
         self.duration = f"{hours} hrs"
    
   
+class Enrollment(models.Model):
+    first_name=models.CharField(max_length=50)
+    last_name=models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    contact=models.IntegerField()
+    city=models.CharField(max_length=50)
+    course_preferences=models.CharField(max_length=50)
+    price=models.FloatField()
+
+    def __str__(self):
+        return self.first_name
