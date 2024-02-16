@@ -15,10 +15,13 @@ urlpatterns = [
     path('error404/',views.error404,name="error404" ),
     path('signup/',views.sign_up,name="sign_up" ),
     path('login/',views.userlogin,name="login" ),
-    path('join_now/',views.joinnow,name="joinnow" ),
+    path('join_now/<int:id>',views.joinnow,name="joinnow" ),
 
     path('web_design/<int:id>/',views.web_design,name="web_design" ),
     path('logout/', views.logout_view, name='logout'),
+   
+
+    
 
    
 ]

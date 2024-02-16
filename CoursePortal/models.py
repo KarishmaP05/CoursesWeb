@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import date
-
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Contact(models.Model):
@@ -34,8 +34,9 @@ class Course(models.Model):
     )
 
     category = models.CharField(max_length=200, choices=CATEGORY_CHOICES, default="web_design")
+    
     to_be_listed = models.BooleanField(default=True)
-    description = models.TextField()
+    description = RichTextField()
 
     def __str__(self):
             return self.name

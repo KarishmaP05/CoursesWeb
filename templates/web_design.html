@@ -6,24 +6,41 @@
     <!--  Start -->
     <div class="container-xxl py-5">
         
+        
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 22em;">
+                    <div class="position-relative h-100" style="max-height: 40em;">
                         <img class="img-fluid position-absolute w-100 h-100" src="{{displaycourse.course_img.url}}" alt="" style="object-fit: cover;height: 70% !important;width: 100% !important;">
                     </div>
-                   
+                
+                    <div style="margin-top: -5em;">
+                       <b> INFORMATION: <br><br></b>
+                        <h6 class="mb-0"> Created By :<i>{{displaycourse.faculty_name}}</i></h6>
+                    </div>
+                    <div style="margin-top: 1em;">
+                        <h6 class="mb-0">Price: ₹ {{displaycourse.price}}</h6>
+                    </div>
+                    <div style="margin-top: 1em;">
+                        <h6 class="mb-0">Duration: {{displaycourse.duration}} Hrs.</h6>
+                    </div>
+                    <div style="margin-top: 1em;">
+                        <h6 class="mb-0">Intake: {{displaycourse.intake}} Students</h6>
+                    </div>
+                    <div>
+                        <h6 class="mb-0" style="margin-top: 3em;"><B>REQUIREMENTS: </B> Just will to learn and achieve great things.</h6>
+                    </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                     <h6 class="section-title bg-white text-start text-primary pe-3">About Course</h6>
-                    <h3 class="mb-4">{{displaycourse.name}}</h3>
-                    <h4 class="mb-0"> {{displaycourse.description}}</h4>
+                    <h3 class="mb-4" style="margin-top: 0.5em;"><span style="text-transform: uppercase;">{{displaycourse.name}}</span></h3>
+                    <h4 class="mb-0"> {{displaycourse.description|safe}}</h4>
                 </div>
+                
                 <div>
-                    <h4 class="mb-0" style="margin-top: -6em;"> Created By {{displaycourse.faculty_name}}</h4>
-                    <h3 class="mb-0">₹ {{displaycourse.price}}</h3>
+                    <h3 class="mb-0" ><a href="/join_now/{{displaycourse.id}}" class="btn btn-primary py-3 px-5 mt-2">Enroll</a></h3>
                 </div>
-                <div> <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a></div>
+                
             </div>
         </div>
     </div>

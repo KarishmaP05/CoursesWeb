@@ -3,6 +3,7 @@ from .models import Contact,Enrollment,Course
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.views.generic import DetailView
+from django.db.models import Count
 
 
 # Create your views here.
@@ -16,7 +17,9 @@ def about(request):
 def courses(request):
     courses=Course.objects.all()
     # print('Courses',courses)
-    return render(request,'courses.html',{'Courses':courses})
+    categories_with_count = Course.objects.values('category').annotate(count=Count('id'))
+    print(categories_with_count)
+    return render(request,'courses.html',{'Courses':courses,'categories_with_count': categories_with_count})
 
 def contact(request):
     if request.method=="POST":
@@ -71,34 +74,45 @@ def userlogin(request):
 
         else:
             print("Invalid Credentials")
-            return redirect('/login')  # url/action at the time on redirect
+            return redirect('/login')  # url/action at the time of redirect
         
     return render(request,'login.html',{})   # html page at the time of render
 
-def joinnow(request):
+def joinnow(request,id):
+   
     if request.method=='POST':
         firstname=request.POST['firstname']
         lastname=request.POST['lastname']
         email=request.POST['email']
         contact=request.POST['contact']
         city=request.POST['city']
-        coursepreferences=request.POST['course']
+        coursepreferences=request.POST.get('course')
         price=request.POST['price']
       
+        print(coursepreferences)
         new_user=Enrollment.objects.create(first_name=firstname,last_name=lastname,email=email,contact=contact,city=city,course_preferences=coursepreferences,price=price)
-        
-        return redirect('/join_now')
-    return render(request,'join_now.html',{})
+        return redirect('/')
+     
+    if id==0:
+        return render(request,'join_now.html',{})
+    else:
+        displaycourse=Course.objects.get(id=id)
+        course=displaycourse
+        price=displaycourse.price
+        return render(request,'join_now.html',{'price':price,'course':displaycourse})
+       
+       
+
 
 def web_design(request,id):
     displaycourse=Course.objects.get(id=id)
 
-    print("dfdfd",displaycourse)
     return render(request,'web_design.html',{'displaycourse':displaycourse})
 
 
 def logout_view(request):
     logout(request)
     return redirect('/')
+
 
 
