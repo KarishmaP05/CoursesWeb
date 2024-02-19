@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.views.generic import DetailView
 from django.db.models import Count
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 
 # Create your views here.
@@ -54,6 +57,18 @@ def sign_up(request):
 
         if password==confirmpassword:
             u = User.objects.create_user(username=email,email=email,password=password)
+            u.fullname = fullname  # Assign fullname to user object
+            u.save()
+            try:
+                subject = 'Welcome to e-Learning platform'
+                message = f'Hi {u.fullname}, thank you for registering in e-Learning.Enjoy Technical Journey with e-Learning.'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [u.email, ]
+                send_mail( subject, message, email_from, recipient_list )
+
+            except:
+                print("Failed to send Mail")
+            
             return redirect('/login')
         else:
             print("password is not match")
