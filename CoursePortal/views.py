@@ -11,7 +11,17 @@ from django.core.mail import send_mail
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html',{})
+    courses=Course.objects.all()
+    categories_with_count = Course.objects.values('category').annotate(count=Count('id'))
+    # print(categories_with_count)
+
+    category_counts = [(item['category'], item['count']) for item in categories_with_count]
+
+    categories_in_dictionary={}
+    for category, count in category_counts:
+        # print(f"Category: {category}, Count: {count}")
+        categories_in_dictionary[category]=count
+    return render(request, 'index.html',{'Courses':courses,'categories_in_dictionary':categories_in_dictionary})
 
 
 def about(request):
@@ -20,9 +30,19 @@ def about(request):
 def courses(request):
     courses=Course.objects.all()
     # print('Courses',courses)
+
     categories_with_count = Course.objects.values('category').annotate(count=Count('id'))
-    print(categories_with_count)
-    return render(request,'courses.html',{'Courses':courses,'categories_with_count': categories_with_count})
+    # print(categories_with_count)
+
+    category_counts = [(item['category'], item['count']) for item in categories_with_count]
+
+    categories_in_dictionary={}
+    for category, count in category_counts:
+        # print(f"Category: {category}, Count: {count}")
+        categories_in_dictionary[category]=count
+
+    # print("Dictionary",categories_in_dictionary)
+    return render(request,'courses.html',{'Courses':courses,'categories_in_dictionary':categories_in_dictionary})
 
 def contact(request):
     if request.method=="POST":
@@ -119,15 +139,23 @@ def joinnow(request,id):
        
 
 
-def web_design(request,id):
+def course_view(request,id):
     displaycourse=Course.objects.get(id=id)
 
-    return render(request,'web_design.html',{'displaycourse':displaycourse})
+    return render(request,'course-view.html',{'displaycourse':displaycourse})
 
 
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def category_courses(request,category):
+ 
+    courses=Course.objects.all()
+    category_courses=Course.objects.filter(category=category)
+    current_category=category.replace('_', ' ')
+    return render(request,'category_courses.html',{'Category_courses':category_courses,'current_category':current_category})
+
 
 
 
